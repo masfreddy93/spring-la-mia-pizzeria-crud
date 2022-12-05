@@ -17,12 +17,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import jakarta.validation.Valid;
 
 @Controller
+@RequestMapping("/")
 public class PizzaController {
 
 	@Autowired
 	private PizzaService pizzaService;
 	
-	@RequestMapping("/")
+	@GetMapping
 	public String index(Model model) {
 		
 		List<Pizza> pizze = pizzaService.findAll();

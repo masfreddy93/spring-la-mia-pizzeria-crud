@@ -7,6 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
@@ -17,17 +18,17 @@ public class Pizza {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@Column
-	@NotNull
+	@Column(name="name", nullable=false)
+	@NotEmpty(message="name cannot be null")
 	private String name;
 	
-	
+	@Column
 	@Lob
 	private String description;
 	
 	@Column
 	@NotNull
-	private int price;
+	private Integer price;
 	
 	public Pizza() {}
 	
