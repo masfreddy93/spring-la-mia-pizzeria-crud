@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Pizze</title>
+<link th:href=@{css/style.css} rel="stylesheet" />
+</head>
+
+<body>
+	
+	<header>
+		<h2>
+			<a href="/">Pizze</a>
+		</h2>
+		<br>
+		<h3><a href="/pizze/create">Create pizza</a></h3>
+	</header>
+	
+	<main>
+		<ul th:if="${pizze.size()} > 0">
+			<li 
+				th:each="pizza : ${pizze}"
+			>
+				[[${pizza.id}]] - 
+				<a th:href="@{/pizza/{id} (id=${pizza.id})}">
+					 [[${pizza.name}]]       
+				</a>
+				<a th:href="@{/pizze/update/{id} (id=${pizza.id})}">    Update</a>
+				<a th:href="@{/pizze/delete/{id} (id=${pizza.id})}">    Delete</a>
+			</li>
+		</ul>
+		<p th:unless="${pizze.size() > 0}">The list of pizze is empty at the moment. We are sorry about that!</p>
+	</main>
+	
+	
+	<script type="text/javascript" th:src="@{js/app.js}"></script>
+</body>
+</html>
