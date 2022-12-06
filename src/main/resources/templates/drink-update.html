@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Drinks</title>
+<link th:href=@{css/style.css} rel="stylesheet" />
+</head>
+
+<body>
+	
+	<header>
+		<h2>
+			<a href="/">Pizze</a>
+		</h2>
+		<h2>
+			<a href="/drink">Drinks</a>
+		</h2>
+		<br><br>
+		<h3>Drink update</h3>
+	</header>
+	
+	<main>
+		<form
+			th:object="${drink}"
+			method="POST"
+			action="/drink/store"
+		>
+			<input type="number" name="id" th:field="*{id}" style="display:none">
+			
+			<label>Name</label>
+			<input type="text" name="name" th:field="*{name}">
+			<br>
+			<label>Description</label>
+			<input type="text" name="description" th:field="*{description}">
+			<br>
+			<label>Price</label>
+			<input type="number" name="price" th:field="*{price}">
+			<br><br>
+			<input type="submit" value="update">
+		</form>
+	</main>
+</body>
+</html>

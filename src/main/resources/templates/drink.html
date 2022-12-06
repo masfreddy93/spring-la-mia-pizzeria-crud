@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Drinks</title>
+<link th:href=@{css/style.css} rel="stylesheet" />
+</head>
+
+<body>
+	
+	<header>
+		<h2>
+			<a href="/">Pizze</a>
+		</h2>
+		<h2>
+			<a href="/drink">Drinks</a>
+		</h2>
+		<br><br>
+		<h3>Drink</h3>
+	</header>
+	
+	<main>
+		<p>
+			[[${drink}]]			
+		</p>
+	</main>
+</body>
+</html>
