@@ -3,17 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <title>Drinks</title>
-<link th:href=@{css/style.css} rel="stylesheet" />
+<!-- Bootstrap CSS -->
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.1.3/css/bootstrap.min.css}"/>
 </head>
 
-<body>
+<body class="container">
 	
 	<header>
 		<h2>
-			<a href="/">Pizze</a>
+			<a href="/" class="btn btn-info">Pizze</a>
 		</h2>
 		<h2>
-			<a href="/drink">Drinks</a>
+			<a href="/drink" class="btn btn-info">Drinks</a>
 		</h2>
 		<br><br>
 		<h3>Drink</h3>

@@ -70,7 +70,7 @@ public class Pizza {
 	}
 
 
-	public int getPrice() {
+	public Integer getPrice() {
 		return price;
 	}
 
