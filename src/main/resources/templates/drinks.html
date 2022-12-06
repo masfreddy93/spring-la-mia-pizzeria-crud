@@ -9,36 +9,47 @@
 
 <body class="container">
 	
-	<header class="mb-4">
-		<h2>
-			<a class="btn btn-info" href="/">Pizze</a>
-		</h2>
-		<h2>
-			<a href="/drink" class="btn btn-info">Drinks</a>
-		</h2>
+	<header class="mt-4">
+		<a class="btn btn-info" href="/">Pizze</a>
+		<a href="/drink" class="btn btn-info">Drinks</a>
 		<br>
-		<h3><a class="btn btn-warning" href="/drink/create">Create drink</a></h3>
+		<h3><a class="btn btn-warning mt-5 mb-3" href="/drink/create">Create drink</a></h3>
 	</header>
 	
 	<main>
-		<ul th:if="${drinks.size()} > 0">
-			<li 
-				th:each="drink : ${drinks}"
-				class="mb-3"
-			>
-				[[${drink.id}]] - 
-				<a th:href="@{/drink/{id} (id=${drink.id})}">
-					 [[${drink.name}]]       
-				</a>
-				<a th:href="@{/drink/update/{id} (id=${drink.id})}" class="btn btn-warning">    Update</a>
-				<a th:href="@{/drink/delete/{id} (id=${drink.id})}" class="btn btn-danger">    Delete</a>
-			</li>
-		</ul>
-		<p th:unless="${drinks.size() > 0}">The list of drinks is empty at the moment. We are sorry about that!</p>
+		<table class="table" th:if="${drinks.size()} > 0">
+		  <thead>
+		    <tr>
+		      <th scope="col">ID</th>
+		      <th scope="col">Name</th>
+		      <th scope="col">Description</th>
+		      <th scope="col">Price</th>
+		      <th scope="col"></th>
+		      <th scope="col"></th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		    <tr 
+		    	th:each="drink : ${drinks}"
+		  		th:object="${drink}"
+		  	>
+		      <th scope="row">[[*{id}]]</th>
+		      <td>
+		      	<a
+		      		th:href="@{/drink/{id} (id=*{id})}"
+		      	>
+					[[*{name}]]
+		      	</a>
+		      </td>
+		      <td>[[*{description}]]</td>
+		      <td>[[*{price}]]</td>
+		      <td><a th:href="@{/drink/update/{id} (id=${drink.id})}" class="btn btn-warning">Update</a></td>
+		      <td><a th:href="@{/drink/delete/{id} (id=${drink.id})}" class="btn btn-danger">    Delete</a></td>  
+		    </tr>
+		  </tbody>
+		</table>
+		
+		 <p th:unless="${drinks.size() > 0}">The list of drinks is empty at the moment. We are sorry about that!</p>
 	</main>
-	
-	
-	<!-- Bootstrap Bundle with Popper -->
-        <script th:src="@{/webjars/bootstrap/5.1.3/js/bootstrap.bundle.min.js}"></script>
 </body>
 </html>
