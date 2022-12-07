@@ -6,13 +6,44 @@
 </head>
 <body>
 	
+	<!-- header -->
 	<header 
-		class="mt-4 mb-5"
+		class="mb-5 bg-light p-3 rounded container-fluid d-flex justify-content-between"
 		th:fragment="header"
 	>
-		<a class="btn btn-info" href="/">Pizze</a>
-		<a href="/drink" class="btn btn-info">Drinks</a>
+		<div>
+			<a class="btn btn-info" href="/">Pizze</a>
+			<a href="/drink" class="btn btn-info">Drinks</a>
+		</div>
+		<div>
+			<a href="/drink/search" class="btn btn-warning mb-1">Search</a>
+			<a href="/search" class="btn btn-warning mb-1 mx-2">Search in all categories</a>
+		</div>
 	</header>
+	
+	<!-- errors -->
+	<div
+		th:fragment="errors"
+		th:if="${errors} != NULL OR ${catchError} != NULL"
+		class="text-danger fw-bolder"
+	>
+		ERROR:<br>
+			<ul>
+				<li
+					th:each="error : ${errors}"
+					th:object="${error}"
+					class="text-danger"
+				>
+					[[*{defaultMessage}]]
+				</li>
+				<li
+					th:if="catchError != NULL"
+					class="text-danger"
+				>
+					[[*{catchError}]]
+				</li>
+			</ul>
+	</div>
 	
 </body>
 </html>

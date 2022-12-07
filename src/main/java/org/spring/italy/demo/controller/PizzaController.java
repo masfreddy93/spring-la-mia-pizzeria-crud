@@ -36,7 +36,7 @@ public class PizzaController {
 		List<Pizza> pizze = pizzaService.findAll();
 		model.addAttribute("pizze", pizze);
 		
-		return "index";
+		return "pizza/index";
 	}
 	
 	
@@ -53,7 +53,7 @@ public class PizzaController {
 		Pizza pizza = optPizza.get();
 		model.addAttribute("pizza", pizza);
 		
-		return "pizza";
+		return "pizza/pizza";
 	}
 	
 	
@@ -63,7 +63,7 @@ public class PizzaController {
 		Pizza pizza = new Pizza();
 		model.addAttribute("pizza", pizza);
 		
-		return "pizza-create";
+		return "pizza/pizza-create";
 	}
 	@PostMapping("/pizze/create")
 	public String storePizza(@Valid Pizza pizza, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
@@ -80,8 +80,20 @@ public class PizzaController {
 			return "redirect:/pizze/create";
 		}
 		
+		try {
+			
+			pizzaService.save(pizza);
+			
+		} catch (Exception e) {
+			
+			final String msg = e.getMessage();
+			
+			System.err.println(msg);
+			redirectAttributes.addFlashAttribute("catchError", msg);
+			
+			return "redirect:/pizze/create";
+		}
 		
-		pizzaService.save(pizza);
 		
 		return "redirect:/";
 	}
@@ -94,7 +106,7 @@ public class PizzaController {
 		
 		model.addAttribute("pizza", pizza);
 		
-		return "pizza-update";
+		return "pizza/pizza-update";
 	}
 	@PostMapping("/pizze/store")
 	public String updatePizza(@Valid Pizza pizza, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
@@ -111,18 +123,43 @@ public class PizzaController {
 			return "redirect:/pizze/update/" + pizza.getId();
 		}
 		
-		pizzaService.save(pizza);
+		try {
+			
+			pizzaService.save(pizza);
+			
+		} catch (Exception e) {
+			
+			final String msg = e.getMessage();
+			
+			System.err.println(msg);
+			redirectAttributes.addFlashAttribute("catchError", msg);
+			
+			return "redirect:/pizze/update/" + pizza.getId();
+		}
+		
 		
 		return "redirect:/";
 	}
 	
 	@GetMapping("/pizze/delete/{id}")
-	public String deletePizza(@PathVariable("id") int id) {
+	public String deletePizza(@PathVariable("id") int id,
+			RedirectAttributes redirectAttributes) {
 		
-		Optional<Pizza> optPizza = pizzaService.findPizzaById(id);
-		Pizza pizza = optPizza.get();
+		try {
+			
+			Optional<Pizza> optPizza = pizzaService.findPizzaById(id);
+			Pizza pizza = optPizza.get();
+			
+			pizzaService.delete(pizza);
+			
+		} catch (Exception e) {
+			
+			final String msg = e.getMessage();
+			
+			System.err.println(msg);
+			redirectAttributes.addFlashAttribute("catchError", msg);
+		}
 		
-		pizzaService.delete(pizza);
 		
 		return "redirect:/";
 	}
@@ -145,8 +182,11 @@ public class PizzaController {
 		model.addAttribute("query", query);
 		
 		
-		return "pizza-search";
+		return "pizza/pizza-search";
 	}
+	
+	
+	
 	
 	@GetMapping("/search")
 	public String getSearchDrinkAndPizzaByName(Model model, @RequestParam(name = "q", required = false) String query) {
@@ -169,8 +209,6 @@ public class PizzaController {
 		model.addAttribute("pizze", pizze);
 		model.addAttribute("drinks", drinks);
 		model.addAttribute("query", query);
-		
-		
 		
 		return "drink-pizza-search";
 	}

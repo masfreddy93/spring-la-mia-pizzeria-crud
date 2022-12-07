@@ -12,23 +12,10 @@
 	
 	<main>
 		<h2 class="">Pizza update</h2>
-	
-		<div
-			th:if="${errors}"
-			class="text-danger fw-bolder"
-		>
-			ERROR:<br>
-			<ul>
-				<li
-					th:each="error : ${errors}"
-					th:object="${error}"
-					class="text-danger"
-				>
-					[[*{defaultMessage}]]
-				</li>
-			</ul>
-		</div>
-	
+		
+			
+		<div th:replace="frag :: errors"></div>
+		
 		<form
 				th:object="${pizza}"
 				method="POST"

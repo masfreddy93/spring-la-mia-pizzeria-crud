@@ -32,7 +32,7 @@ public class DrinkController {
 		List<Drink> drinks = drinkService.findAll();
 		model.addAttribute("drinks", drinks);
 		
-		return "drinks";
+		return "drink/drinks";
 	}
 	
 	@GetMapping("/{id}")
@@ -47,7 +47,7 @@ public class DrinkController {
 		Drink drink = drinkOpt.get();
 		model.addAttribute("drink", drink);
 		
-		return "drink";
+		return "drink/drink";
 	}
 	
 	@GetMapping("/create")
@@ -56,7 +56,7 @@ public class DrinkController {
 		Drink drink = new Drink();		
 		model.addAttribute("drink", drink);
 		
-		return "drink-create";
+		return "drink/drink-create";
 	}
 	
 	@PostMapping("/create")
@@ -73,9 +73,19 @@ public class DrinkController {
 			return "redirect:/drink/create";
 		}
 		
+		try {
+			
+			drinkService.saveDrink(drink);
+		} catch (Exception e) {
+			
+			final String msg = e.getMessage();
+			
+			System.err.println(msg);
+			redirectAttributes.addFlashAttribute("catchError", msg);
+			
+			return "redirect:/drink/create";
+		}
 		
-		
-		drinkService.saveDrink(drink);
 		
 		return "redirect:/drink";
 	}
@@ -88,7 +98,7 @@ public class DrinkController {
 		
 		model.addAttribute("drink", drink);
 		
-		return "drink-update";
+		return "drink/drink-update";
 	}
 	
 	@PostMapping("/store")
@@ -105,18 +115,43 @@ public class DrinkController {
 			return "redirect:/drink/update/" + drink.getId();
 		}
 		
-		drinkService.saveDrink(drink);
+		try {
+			
+			drinkService.saveDrink(drink);
+		} catch (Exception e) {
+			
+			final String msg = e.getMessage();
+			
+			System.err.println(msg);
+			redirectAttributes.addFlashAttribute("catchError", msg);
+			
+			return "redirect:/drink/update/" + drink.getId();
+		}
+		
 		
 		return "redirect:/drink";
 	}
 	
 	@GetMapping("/delete/{id}")
-	public String delete(@PathVariable("id") int id) {
+	public String delete(@PathVariable("id") int id,
+			RedirectAttributes redirectAttributes) {
 		
-		Optional<Drink> drinkOpt = drinkService.findDrinkById(id);
-		Drink drink = drinkOpt.get();
 		
-		drinkService.delete(drink);
+		try {
+			
+			Optional<Drink> drinkOpt = drinkService.findDrinkById(id);
+			Drink drink = drinkOpt.get();
+			
+			drinkService.delete(drink);
+			
+		} catch (Exception e) {
+			
+			final String msg = e.getMessage();
+			
+			System.err.println(msg);
+			redirectAttributes.addFlashAttribute("catchError", msg);
+		}
+		
 		
 		return "redirect:/drink";
 	}	
@@ -139,7 +174,7 @@ public class DrinkController {
 		model.addAttribute("query", query);
 		
 		
-		return "drink-search";
+		return "drink/drink-search";
 	}
 	
 }
