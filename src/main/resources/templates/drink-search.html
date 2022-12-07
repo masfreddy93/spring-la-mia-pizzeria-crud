@@ -9,14 +9,21 @@
 
 <body class="container">
 	
-	
 	<header th:replace="frag :: header"></header>
 	
 	<main>
-		<a href="/drink/search" class="btn btn-warning mb-1">Search</a>
-		<h2><a class="btn btn-warning mb-3" href="/drink/create">Create drink</a></h2>
-		<br>
+		<h3>Drink search</h3>
 		
+		
+		
+		<form class="mb-4">
+		
+		    <label class="form-label">Name</label>
+		    <input type="text" class="form-control mb-2" name="q" th:value="${query}">
+		  
+		  	<input type="submit" class="btn btn-primary" value="Search">
+		  
+		</form>
 		
 		<table class="table" th:if="${drinks.size()} > 0">
 		  <thead>
@@ -45,12 +52,12 @@
 		      <td>[[*{description}]]</td>
 		      <td>[[*{price}]]</td>
 		      <td><a th:href="@{/drink/update/{id} (id=${drink.id})}" class="btn btn-warning">Update</a></td>
-		      <td><a th:href="@{/drink/delete/{id} (id=${drink.id})}" class="btn btn-danger">    Delete</a></td>  
+		      <td><a th:href="@{/drink/delete/{id} (id=${drink.id})}" class="btn btn-danger">Delete</a></td>  
 		    </tr>
 		  </tbody>
 		</table>
 		
-		 <p th:unless="${drinks.size() > 0}">The list of drinks is empty at the moment. We are sorry about that!</p>
+		
 	</main>
 </body>
 </html>

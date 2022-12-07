@@ -12,6 +12,7 @@
 	<header th:replace="frag :: header"></header>
 	
 	<main>
+		<a href="/pizza/search" class="btn btn-warning mb-1">Search</a>
 		<h3><a class="btn btn-warning mb-3" href="/pizze/create">Create pizza</a></h3>
 		
 		<table class="table" th:if="${pizze.size()} > 0">
