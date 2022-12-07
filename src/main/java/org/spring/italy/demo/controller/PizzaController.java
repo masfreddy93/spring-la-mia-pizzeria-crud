@@ -3,7 +3,9 @@ package org.spring.italy.demo.controller;
 import java.util.List;
 import java.util.Optional;
 
+import org.spring.italy.demo.pojo.Drink;
 import org.spring.italy.demo.pojo.Pizza;
+import org.spring.italy.demo.serv.DrinkService;
 import org.spring.italy.demo.serv.PizzaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +26,9 @@ public class PizzaController {
 
 	@Autowired
 	private PizzaService pizzaService;
+	@Autowired
+	private DrinkService drinkService;
+	
 	
 	@GetMapping
 	public String index(Model model) {
@@ -123,7 +128,7 @@ public class PizzaController {
 	}
 	
 	@GetMapping("pizza/search")
-	public String getSearchDrinkByName(Model model, @RequestParam(name = "q", required = false) String query) {
+	public String getSearchPizzaByName(Model model, @RequestParam(name = "q", required = false) String query) {
 		
 		List<Pizza> pizze = null;
 		if (query == null) {
@@ -142,5 +147,33 @@ public class PizzaController {
 		
 		return "pizza-search";
 	}
+	
+	@GetMapping("/search")
+	public String getSearchDrinkAndPizzaByName(Model model, @RequestParam(name = "q", required = false) String query) {
+		
+		List<Pizza> pizze = null;
+		List<Drink> drinks = null;
+		
+		if (query == null) {
+			
+			pizze = pizzaService.findAll();
+			drinks = drinkService.findAll();
+			
+		} else {
+			
+			pizze = pizzaService.findByName(query);
+			drinks = drinkService.findByName(query);
+		}
+		
+		
+		model.addAttribute("pizze", pizze);
+		model.addAttribute("drinks", drinks);
+		model.addAttribute("query", query);
+		
+		
+		
+		return "drink-pizza-search";
+	}
+	
 	
 }
