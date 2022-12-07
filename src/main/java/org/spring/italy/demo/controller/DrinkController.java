@@ -8,10 +8,12 @@ import org.spring.italy.demo.serv.DrinkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.validation.Valid;
 
@@ -57,8 +59,21 @@ public class DrinkController {
 	}
 	
 	@PostMapping("/create")
-	public String storeDrink(@Valid Drink drink) {
+	public String storeDrink(@Valid Drink drink, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 
+		if(bindingResult.hasErrors()) {
+			
+			System.err.println("ERRORE");
+			System.err.println(bindingResult.getAllErrors());
+			System.err.println("------");
+			
+			redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+			
+			return "redirect:/drink/create";
+		}
+		
+		
+		
 		drinkService.saveDrink(drink);
 		
 		return "redirect:/drink";
@@ -76,8 +91,21 @@ public class DrinkController {
 	}
 	
 	@PostMapping("/store")
-	public String updateDrink(@Valid Drink drink) {
+	public String updateDrink(@Valid Drink drink, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 
+		if(bindingResult.hasErrors()) {
+			
+			System.err.println("ERRORE");
+			System.err.println(bindingResult.getAllErrors());
+			System.err.println("------");
+			
+			redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+			
+			int id = drink.getId();
+			
+			return "redirect:/drink/update/{id}";
+		}
+		
 		drinkService.saveDrink(drink);
 		
 		return "redirect:/drink";

@@ -8,27 +8,38 @@
 </head>
 <body class="container">
 
-	<h2>Pizza Update</h2>
-	
-	<form 
-		method="POST"
-		action="/pizze/store"
-		th:object="${pizza}"
-	>
-	
-		<input type="number" name="id" th:field="*{id}" style="display:none" >
+	<header class="mt-4">
+		<a class="btn btn-info" href="/">Pizze</a>
+		<a href="/drink" class="btn btn-info">Drinks</a>
+		<br><br>
+		<h2 class="">Pizza update</h2>
+	</header>
 		
-		<label>Name</label>
-		<input type="text" name="name" th:field="*{name}" >
-		<br>
-		<label>Description</label>
-		<input type="text" name="description" th:field="*{description}" >
-		<br>
-		<label>Price</label>
-		<input type="number" name="price" th:field="*{price}" >
-		<br>
-		<br>
-		<input type="submit" value="update">
+	
+	<form
+			th:object="${pizza}"
+			method="POST"
+			action="/pizze/store"
+		>
+		
+			<input type="number" name="id" th:field="*{id}" style="display:none" >
+		
+		  <div class="mb-3">
+		    <label for="exampleInputEmail1" class="form-label">Name</label>
+		    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="name" th:field="*{name}">
+		    <div id="emailHelp" class="form-text">Insert the name of the pizza</div>
+		  </div>
+		  <div class="mb-3">
+		    <label for="exampleInputPassword1" class="form-label">Description</label>
+		    <input type="text" class="form-control" id="exampleInputPassword1" name="description" th:field="*{description}">
+		  </div>
+		  <div class="mb-3">
+		    <label for="exampleInputPassword1" class="form-label">Price</label>
+		    <input type="number" class="form-control" id="exampleCheck1" name="price" th:field="*{price}">
+		  </div>
+		  
+		  <input type="submit" class="btn btn-primary" value="Update">
+		  
 	</form>
 	
 </body>

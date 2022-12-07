@@ -7,6 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
@@ -27,7 +28,8 @@ public class Pizza {
 	private String description;
 	
 	@Column
-	@NotNull
+	@NotNull(message = "Price cannot be null")
+	@Min(value = 1, message = "Price must be higher than 0")
 	private Integer price;
 	
 	public Pizza() {}
