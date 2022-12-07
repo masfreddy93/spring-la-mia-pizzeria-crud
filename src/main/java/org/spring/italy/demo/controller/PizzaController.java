@@ -102,7 +102,7 @@ public class PizzaController {
 			redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
 			
 			
-			return "redirect:/pizze/create";
+			return "redirect:/pizze/update/" + pizza.getId();
 		}
 		
 		pizzaService.save(pizza);

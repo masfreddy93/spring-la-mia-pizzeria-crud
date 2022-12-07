@@ -8,14 +8,10 @@
 </head>
 <body class="container">
 
-	<header class="mt-4">
-		<a class="btn btn-info" href="/">Pizze</a>
-		<a href="/drink" class="btn btn-info">Drinks</a>
-		<br><br>
-		<h2 class="">Pizza update</h2>
-	</header>
+	<header th:replace="frag :: header"></header>
 	
 	<main>
+		<h2 class="">Pizza update</h2>
 	
 		<div
 			th:if="${errors}"

@@ -9,14 +9,10 @@
 
 <body class="container">
 	
-	<header class="mt-4">
-		<a class="btn btn-info" href="/">Pizze</a>
-		<a href="/drink" class="btn btn-info">Drinks</a>
-		<br>
-		<h3><a class="btn btn-warning mt-5 mb-3" href="/pizze/create">Create pizza</a></h3>
-	</header>
+	<header th:replace="frag :: header"></header>
 	
 	<main>
+		<h3><a class="btn btn-warning mb-3" href="/pizze/create">Create pizza</a></h3>
 		
 		<table class="table" th:if="${pizze.size()} > 0">
 		  <thead>

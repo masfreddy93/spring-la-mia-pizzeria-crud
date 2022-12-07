@@ -9,15 +9,10 @@
 
 <body class="container">
 	
-	<header class="mt-4">
-		<a class="btn btn-info" href="/">Pizze</a>
-		<a href="/drink" class="btn btn-info">Drinks</a>
-		<br>
-		<br><br>
-		<h3>Drink</h3>
-	</header>
+	<header th:replace="frag :: header"></header>
 	
 	<main>
+		<h3>Drink</h3>
 		<p>
 			[[${drink}]]			
 		</p>
