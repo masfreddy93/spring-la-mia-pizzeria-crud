@@ -101,9 +101,7 @@ public class DrinkController {
 			
 			redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
 			
-			int id = drink.getId();
-			
-			return "redirect:/drink/update/{id}";
+			return "redirect:/drink/create";
 		}
 		
 		drinkService.saveDrink(drink);

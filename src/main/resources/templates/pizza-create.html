@@ -19,12 +19,14 @@
 	
 		<div
 			th:if="${errors}"
+			class="text-danger fw-bolder"
 		>
 			ERROR:<br>
 			<ul>
 				<li
 					th:each="error : ${errors}"
 					th:object="${error}"
+					class="text-danger"
 				>
 					[[*{defaultMessage}]]
 				</li>

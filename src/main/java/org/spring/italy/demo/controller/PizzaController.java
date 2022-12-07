@@ -91,7 +91,19 @@ public class PizzaController {
 		return "pizza-update";
 	}
 	@PostMapping("/pizze/store")
-	public String updatePizza(@Valid Pizza pizza) {
+	public String updatePizza(@Valid Pizza pizza, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+		
+		if(bindingResult.hasErrors()) {
+			
+			System.err.println("ERRORE");
+			System.err.println(bindingResult.getAllErrors());
+			System.err.println("------");
+			
+			redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+			
+			
+			return "redirect:/pizze/create";
+		}
 		
 		pizzaService.save(pizza);
 		

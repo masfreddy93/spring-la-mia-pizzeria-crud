@@ -77,7 +77,7 @@ public class Pizza {
 	}
 
 
-	public void setPrice(int price) {
+	public void setPrice(Integer price) {
 		this.price = price;
 	}
 	
